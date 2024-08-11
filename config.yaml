@@ -1,0 +1,29 @@
+indee_video_engine:
+  # keeping the version number, so we can further maintain
+  # some of deprecations
+  version: "v1"
+  log:
+    enable: true
+    level: "info"
+
+  # engine related basic configs
+  configs:
+    # you can configure the storage engine,
+    # as of now we only support sqlite
+    storage: "sqlite"
+    # run the engine as a api server, by default
+    # it is just cli
+    server:
+      enable: true
+      port: 8001
+
+      # enabling prometheus metrics, for the further
+      # analytics, and mastrics
+      metrics:
+        enable: false
+        port: 9090
+
+  cache:
+    # ( os.CWD, cache.dir ), cache dir, the main working dir
+    # for all video processing
+    dir: "%WORDIR/.cache/%DATE/"
