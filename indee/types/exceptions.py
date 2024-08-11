@@ -13,3 +13,11 @@ class WrongInputFile(Exception):
         self.inputs = inputs
         self.message = message
         super().__init__(self.message)
+
+class WrongInputFile(Exception):
+    """Raise when wrong input provided"""
+
+    def __init__(self, inputs: list[str], message: str = "wrong input provided"):
+        self.inputs = inputs
+        self.message = message
+        super().__init__(self.message)

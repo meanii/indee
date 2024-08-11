@@ -16,5 +16,5 @@ class VideoMetadata:
     size: int
     
     # custom fields, to store additional metadata
-    isHDR: bool = False
-    isSDR: bool = False
+    is_hdr: bool = False
+    is_sdr: bool = False

@@ -1,6 +1,9 @@
 import os
+import datetime
 from dataclasses import dataclass
 from typing import List
+from pathlib import Path
+from indee import logger
 
 @dataclass
 class Log:
@@ -78,7 +81,8 @@ class Cache:
     
     funcs = {
         "WORDIR": os.getcwd,
-        "DATE": lambda: datetime.now().strftime("%Y-%m-%d")
+        "DATE": lambda: datetime.datetime.now().strftime("%Y-%m-%d"),
+        "TIMESTAMP": lambda: str(int(datetime.datetime.now().timestamp()))
     }
     
     def __post_init__(self):
@@ -91,12 +95,62 @@ class Cache:
         get_cache_dir:
             get cache dir with variables replaced
         """
-        variables: List[str] = [ "WORDIR", "DATE" ]
+        variables: List[str] = [ "WORDIR", "DATE", "TIMESTAMP" ]
         cache_dir = self.dirname # set cache dir
         for var in variables:
             if self.prefix + var in cache_dir:
                 cache_dir = cache_dir.replace(f"{self.prefix}{var}", self.funcs[var]()) # replace variable with value, if found
         return cache_dir
+
+
+@dataclass
+class Banto:
+    """
+    Banto:
+        dataclass to store banto related configs
+    """
+    banto_dir: str # banto dir path
+    fragment: int = 8000 # default mp4fragment value, 8000 8 seconds
+
+    def __post_init__(self):
+        # check if banto_dir is provided
+        if not self.banto_dir:
+            raise ValueError("banto_dir must be provided")
+        # check if mp4fragment is provided
+        if not self.mp4fragment:
+            raise ValueError("mp4fragment must be provided")
+        
+        self.banto_dir = str(Path.resolve(Path(self.banto_dir))) # resolve banto_dir path, to get absolute path
+        
+        # run pre hook, to verify banto_dir
+        self.__banto_dir_verification_pre_hook()
+    
+    def __banto_dir_verification_pre_hook(self) -> bool:
+        """
+        banto_dir_verification_pre_hook:
+            verify if banto_dir is valid
+        """
+        banto_dir = self.banto_dir
+        list_of_dir_should_exist = ["bin", "lib", "include"]
+        mp4fragment = str(Path(banto_dir) / "bin" / "mp4fragment")
+        mp4dash = str(Path(banto_dir) / "bin" / "mp4dash")
+        
+        for dirname in list_of_dir_should_exist:
+            if not Path(banto_dir / dirname).exists():
+                logger.error(f"BantoDash: {banto_dir / dirname} not found")
+                raise FileNotFoundError(f"{banto_dir / dirname} not found")
+        
+        if not Path(mp4fragment).exists():
+            logger.error(f"BantoDash: {mp4fragment} not found")
+            raise FileNotFoundError(f"{mp4fragment} not found")
+
+        if not Path(mp4dash).exists():
+            logger.error(f"BantoDash: {mp4dash} not found")
+            raise FileNotFoundError(f"{mp4dash} not found")
+        
+        logger.info(f"BantoDash: banto_dir verified")
+        return True
+
 
 @dataclass
 class Configs:
@@ -107,4 +161,5 @@ class Configs:
     version: str
     log: Log
     configs: BasicConfig
+    banto: Banto
     cache: Cache

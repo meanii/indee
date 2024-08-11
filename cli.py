@@ -10,7 +10,6 @@ def main() -> None:
     main:
         main function to run the script
     """
-    
     parser = ArgumentParser(prog="ive", description="indee video engine")
     
     # configs flags, to run in server mode, or cli mode

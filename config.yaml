@@ -24,8 +24,14 @@ indee_video_engine:
       metrics:
         enable: false
         port: 9090
-
+        
+  # cache related configs
   cache:
     # ( os.CWD, cache.dir ), cache dir, the main working dir
     # for all video processing
-    dirname: "%WORDIR/.cache/%DATE/"
+    dirname: "%WORDIR/output/%DATE/%TIMESTAMP/"
+  
+  # video processing related configs
+  banto:
+    banto_dir: "banto" # banto dir, where all the banto files are stored, should be in the root of the project
+    fragment: 8000 # 8 seconds

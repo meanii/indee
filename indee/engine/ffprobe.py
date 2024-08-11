@@ -82,8 +82,8 @@ class Ffrobe:
                 codec_type=metadata["streams"][0]["codec_type"],
                 bit_rate=metadata["streams"][0]["bit_rate"],
                 size=metadata["format"]["size"],
-                isHDR=self.is_hdr(metadata),
-                isSDR=not self.is_hdr(metadata)
+                is_hdr=self.is_hdr(metadata),
+                is_sdr=not self.is_hdr(metadata)
             )
             
         except ffmpeg.Error as e:
