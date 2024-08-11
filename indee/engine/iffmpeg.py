@@ -87,7 +87,8 @@ class IndeeFfmpeg:
             'c:v': codec, # video codec, h265 or h264
             'vf': f'scale=-2:{height}', # video filter, scale to height, keep aspect ratio
             'aspect': '16:9', # aspect ratio, 16:9
-            'c:a': 'copy' # copy audio codec
+            'c:a': 'copy', # copy audio codec
+            'loglevel': 'error' # log level, error
         }
 
         # Apply HDR-specific adjustments
