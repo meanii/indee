@@ -14,6 +14,7 @@ indee video engine
 
 ### Prerequisites
 - [Python 3.9+](https://www.python.org/downloads/)
+- [FFmpeg](https://ffmpeg.org/download.html)
 - [Bento4](https://www.bento4.com/downloads/)
 
 Install the required packages using the following commands:
