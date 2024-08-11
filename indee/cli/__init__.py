@@ -23,7 +23,7 @@ class IndeeCli:
         hdr_output_files = [];
         sdr_output_files = [];
        
-        for resolution in ['360p']:
+        for resolution in ['360p', '480p', '720p', '1080p']:
             output = str(Path(cache_path) / resolution / f"{resolution}.mp4")
             output_files = iffmpeg_instance.transcode(output, resolution, 'h265')
             
