@@ -18,4 +18,4 @@ logger.add(sink=print, level=configs.config.log.level)
 
 
 logger.info("config loaded successfully") # log info message
-logger.debug(f"set log level to {configs.config.log.level}") # log debug message
+logger.info(f"set log level to {configs.config.log.level}") # log debug message
