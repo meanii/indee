@@ -1,4 +1,5 @@
 import ffmpeg
+from typing import List
 
 class Ffrobe:
     """
@@ -6,7 +7,7 @@ class Ffrobe:
         represents wrapper for ffrobe,
         contain some usefull methods
     """
-    inputs: list[str]
+    inputs: List[str]
 
     def __init__(self, inputs: list[str]):
         # make sure inputs is list of str

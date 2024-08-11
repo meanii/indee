@@ -4,13 +4,15 @@ indee_video_engine:
   version: "v1"
   log:
     enable: true
-    level: "info"
+    level: "INFO" # DEBUG, INFO, WARNING, ERROR, CRITICAL
 
   # engine related basic configs
   configs:
     # you can configure the storage engine,
     # as of now we only support sqlite
-    storage: "sqlite"
+    db:
+      enable: true
+      service: "sqlite"
     # run the engine as a api server, by default
     # it is just cli
     server:
@@ -26,4 +28,4 @@ indee_video_engine:
   cache:
     # ( os.CWD, cache.dir ), cache dir, the main working dir
     # for all video processing
-    dir: "%WORDIR/.cache/%DATE/"
+    dirname: "%WORDIR/.cache/%DATE/"
